@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './JsonTool.css';
 
 function JsonTool() {
@@ -9,8 +9,18 @@ function JsonTool() {
     const [history, setHistory] = useState(
         () => JSON.parse(sessionStorage.getItem('jsonHistory')) || []
     );
+    const [expanded, setExpanded] = useState(false);
+    const [textareaHeight, setTextareaHeight] = useState('200px');
     const textareaRef = useRef(null);
     const lineNumbersRef = useRef(null);
+
+    useEffect(() => {
+        if (expanded) {
+            setTextareaHeight(`${textareaRef.current.scrollHeight}em`);
+        } else {
+            setTextareaHeight('200px');
+        }
+    }, [expanded, jsonInput]);
 
     const handleInputChange = (event) => {
         setJsonInput(event.target.value);
@@ -88,9 +98,13 @@ function JsonTool() {
         setHistoryVisible(!historyVisible);
     };
 
+    const expandWindow = () => {
+        setExpanded(!expanded);
+    };
+
     return (
-        <div className='json-wrapper'>
-            <h3 className='json-heading'>Check you JSON here</h3>
+        <div className={`json-wrapper ${expanded ? 'expanded' : ''}`}>
+            <h3 className='json-heading'>Check your JSON here</h3>
             <textarea
                 className='json-text-area'
                 ref={textareaRef}
@@ -100,9 +114,9 @@ function JsonTool() {
                 rows="10"
                 cols="50"
                 placeholder="Enter JSON here..."
-                style={{ resize: 'none' }}
+                style={{ resize: 'none', height: textareaHeight }}
             />
-            <div>
+            <div className='btn-container'>
                 <button className='btn' onClick={validateJson}>Validate</button>
                 <button className='btn' onClick={compressJson}>Compress JSON</button>
                 <button className='btn' onClick={clearJson}>Clear</button>
@@ -111,6 +125,9 @@ function JsonTool() {
                     <button className='btn' onClick={copyText}>Copy</button>
                 )}
             </div>
+            <button className='btn-expand-bottom' onClick={expandWindow}>
+                {expanded ? <i className="material-icons">expand_less</i> : <i className="material-icons">expand_more</i>}
+            </button>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             {historyVisible && (
                 <ul>
@@ -124,5 +141,3 @@ function JsonTool() {
 }
 
 export default JsonTool;
-
-

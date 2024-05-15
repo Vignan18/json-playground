@@ -1,22 +1,46 @@
 .json-wrapper {
+    transition: height 0.3s ease;
+    overflow: hidden;
+}
 
+.json-wrapper.expanded {
+    height: 100vh;
+}
+
+.btn-expand-bottom {
+    margin: 5px 36px 0px 2px;
+    padding: 2px 0 1px 0;
+    float: right;
+    color: #060606;
+    border: none;
+    cursor: pointer;
+    background-color: white;
+}
+
+.material-icons {
+    font-size: 35px;
 }
 
 .json-heading {
     background: #ffb60094;
     padding: 1rem 0 1rem 0;
-    width: 88.69%;
-    margin: 6px 2rem 5px 5rem;
+    width: 100%;
+    margin: 6px 0 5px 0;
     border-radius: 4px;
 }
 
 .json-text-area {
-    height: 14rem;
-    width: 86%;
+    height: auto;
+    width: 85.6%;
     border: 1px solid black;
     border-radius: 4px;
     font-size: 15px;
     padding: 11px;
+}
+
+.btn-container {
+    display: inline-block;
+    margin: 0;
 }
 
 .btn {
