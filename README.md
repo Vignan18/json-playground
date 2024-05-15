@@ -1,2 +1,2 @@
-# validateJson
- Validate the json and compare two file and find difference
+# JSON
+ Play with JSON object as much as you like.
