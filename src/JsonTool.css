@@ -4,7 +4,8 @@
 }
 
 .json-wrapper.expanded {
-    height: 100vh;
+    height: 90vh;
+    overflow: scroll;
 }
 
 .btn-expand-bottom {
@@ -23,15 +24,31 @@
 
 .json-heading {
     background: #ffb60094;
-    padding: 1rem 0 1rem 0;
-    width: 100%;
-    margin: 6px 0 5px 0;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 7px;
+    margin-bottom: 5px;
+    max-width: 80%;
+    padding: 1rem 20px;
     border-radius: 4px;
+}
+
+@media only screen and (max-width: 600px) {
+    .json-heading {
+        font-size: 1.5em;
+    }
+}
+
+.textarea-container {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
 }
 
 .json-text-area {
     height: auto;
-    width: 85.6%;
+    width: 86%;
     border: 1px solid black;
     border-radius: 4px;
     font-size: 15px;
@@ -43,12 +60,13 @@
     margin: 0;
 }
 
-.btn {
-    margin: 5px;
-    padding: 7px;
-    font-size: 17px;
+.btn-container .btns-jsontool {
+    color: #080707;
+    background: #0065ffa3;
+    margin: 4px;
     font-weight: bold;
-    background: #ffecc1;
-    border-radius: 6px;
-    border: 1.5px solid black;
+}
+
+.btn-container .btns-jsontool:hover {
+    background-color: #0065ff78;
 }
