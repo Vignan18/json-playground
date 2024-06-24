@@ -3,10 +3,6 @@
     overflow: hidden;
 }
 
-.json-wrapper.expanded {
-    height: 90vh;
-    overflow: scroll;
-}
 
 .btn-expand-bottom {
     margin: 5px 36px 0px 2px;
@@ -23,7 +19,7 @@
 }
 
 .json-heading {
-    background: #ffb60094;
+    background: #f1ac00;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -43,28 +39,42 @@
 .textarea-container {
     display: flex;
     justify-content: center;
-    padding: 10px;
+    padding: 2rem 10px 10px 10px;
+    height: 43rem;
 }
 
 .json-text-area {
     height: auto;
     width: 86%;
-    border: 1px solid black;
+    color: white;
+    border: 1.5px solid white;
     border-radius: 4px;
+    background: #00000063;
     font-size: 15px;
-    padding: 11px;
+    box-shadow: 0 7px 14px rgb(0 0 0 / 60%);
+    padding: 0 5px;
 }
 
 .btn-container {
-    display: inline-block;
     margin: 0;
+    justify-content: center;
+    text-align: center;
+    display: flex;
 }
 
 .btn-container .btns-jsontool {
     color: #080707;
-    background: #0065ffa3;
-    margin: 4px;
+    background: #ffffff;
+    border: none;
+    margin: 4px 7px;
     font-weight: bold;
+}
+
+.btn-container .btns-jsontool:hover {
+    background: #ffffff !important;
+    border: none !important;
+    transform: scale(1.05);
+    color: #080707 !important;
 }
 
 .btn-container .btns-jsontool:hover {

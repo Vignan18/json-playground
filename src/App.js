@@ -1,15 +1,20 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './components/Header/Header';
+import Compare from './components/Compare/Compare'
+import Parse from  './components/Parse/Parse'
 import './App.css';
-import JsonTool from './JsonTool';
-import JsonComparator from './JsonComparator';
 
 function App() {
   return (
-    <div className="App">
-      <JsonTool />
-      <hr></hr>
-      <JsonComparator />
-    </div>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/parse" element={<Parse />} />
+        <Route path="/compare" element={<Compare />} />
+      </Routes>
+      {/* <Footer /> */}
+    </Router>
   );
 }
 

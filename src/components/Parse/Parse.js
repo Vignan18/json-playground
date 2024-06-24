@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Button from '@mui/material/Button';
-import './JsonTool.css';
+import { Button } from 'react-bootstrap';
+import { motion } from 'framer-motion';
+import './parse.css';
 
-function JsonTool() {
+function Parse() {
     const [jsonInput, setJsonInput] = useState('');
     const [error, setError] = useState('');
     const [lineNumbers, setLineNumbers] = useState('1'); 
@@ -10,20 +11,11 @@ function JsonTool() {
     const [history, setHistory] = useState(
         () => JSON.parse(sessionStorage.getItem('jsonHistory')) || []
     );
-    const [expanded, setExpanded] = useState(false);
-    const [textareaHeight, setTextareaHeight] = useState('17rem');
     const textareaRef = useRef(null);
     const lineNumbersRef = useRef(null);
 
     useEffect(() => {
-        if (!textareaRef.current.contains(document.activeElement)) {
-            if (expanded) {
-                setTextareaHeight(`${textareaRef.current.scrollHeight-256}em`);
-            } else {
-                setTextareaHeight('17rem');
-            }
-        }
-    }, [expanded, jsonInput]);
+    }, [jsonInput]);
 
     const handleInputChange = (event) => {
         setJsonInput(event.target.value);
@@ -101,48 +93,49 @@ function JsonTool() {
         setHistoryVisible(!historyVisible);
     };
 
-    const expandWindow = () => {
-        setExpanded(!expanded);
-    };
-
     return (
-        <div className={`json-wrapper ${expanded ? 'expanded' : ''}`}>
-            <h3 className='json-heading'>Check your JSON here</h3>
-            <div className='textarea-container'>
-                <textarea
-                    className='json-text-area'
-                    ref={textareaRef}
-                    value={jsonInput}
-                    onChange={handleInputChange}
-                    onScroll={handleScroll}
-                    rows="10"
-                    cols="50"
-                    placeholder="Enter JSON here..."
-                    style={{ resize: 'none', height: textareaHeight }}
-                />
-            </div>
-            <div className='btn-container'>
-                <Button className='btns-jsontool' onClick={validateJson}>Validate</Button>
-                <Button className='btns-jsontool' onClick={compressJson}>Compress JSON</Button>
-                <Button className='btns-jsontool' onClick={clearJson}>Clear</Button>
-                <Button className='btns-jsontool' onClick={toggleHistory}>{historyVisible ? 'Hide History' : 'Show History'}</Button>
-                {jsonInput && (
-                    <Button className='btns-jsontool' onClick={copyText}>Copy</Button>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: .5 }}
+        >
+            <div className={`json-wrapper`}>
+                <div className='line-number-container'>
+                    <div className='line-number'></div>
+                </div>
+                <div className='textarea-container'>
+                    <textarea
+                        className='json-text-area'
+                        ref={textareaRef}
+                        value={jsonInput}
+                        onChange={handleInputChange}
+                        onScroll={handleScroll}
+                        rows="10"
+                        cols="50"
+                        placeholder="Enter JSON here..."
+                    />
+                </div>
+                <div className='btn-container'>
+                    <Button className='btns-jsontool' onClick={validateJson}>Validate</Button>
+                    <Button className='btns-jsontool' onClick={compressJson}>Compress JSON</Button>
+                    <Button className='btns-jsontool' onClick={clearJson}>Clear</Button>
+                    <Button className='btns-jsontool' onClick={toggleHistory}>{historyVisible ? 'Hide History' : 'Show History'}</Button>
+                    {jsonInput && (
+                        <Button className='btns-jsontool' onClick={copyText}>Copy</Button>
+                    )}
+                </div>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {historyVisible && (
+                    <ul>
+                        {history.map((entry, index) => (
+                            <li key={index}>{entry.timestamp}: {entry.json}</li>
+                        ))}
+                    </ul>
                 )}
             </div>
-            <button className='btn-expand-bottom' onClick={expandWindow}>
-                {expanded ? <i className="material-icons">expand_less</i> : <i className="material-icons">expand_more</i>}
-            </button>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {historyVisible && (
-                <ul>
-                    {history.map((entry, index) => (
-                        <li key={index}>{entry.timestamp}: {entry.json}</li>
-                    ))}
-                </ul>
-            )}
-        </div>
+        </motion.div>
+        
     );
 }
 
-export default JsonTool;
+export default Parse;
