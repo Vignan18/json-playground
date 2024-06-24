@@ -6,7 +6,7 @@ import './parse.css';
 function Parse() {
     const [jsonInput, setJsonInput] = useState('');
     const [error, setError] = useState('');
-    const [lineNumbers, setLineNumbers] = useState('1'); 
+    const [lineNumbers, setLineNumbers] = useState('1');
     const [historyVisible, setHistoryVisible] = useState(false);
     const [history, setHistory] = useState(
         () => JSON.parse(sessionStorage.getItem('jsonHistory')) || []
@@ -15,12 +15,15 @@ function Parse() {
     const lineNumbersRef = useRef(null);
 
     useEffect(() => {
+        // Handle initial line numbers calculation
+        updateLineNumbers(jsonInput);
     }, [jsonInput]);
 
     const handleInputChange = (event) => {
-        setJsonInput(event.target.value);
-        setError(''); 
-        updateLineNumbers(event.target.value);
+        const { value } = event.target;
+        setJsonInput(value);
+        setError('');
+        updateLineNumbers(value);
     };
 
     const validateJson = () => {
@@ -84,7 +87,7 @@ function Parse() {
 
     const updateHistory = (json) => {
         const newEntry = { json, timestamp: new Date().toLocaleString() };
-        const newHistory = [newEntry, ...history].slice(0, 10); // Keep only the latest 50 entries
+        const newHistory = [newEntry, ...history].slice(0, 10); // Keep only the latest 10 entries
         setHistory(newHistory);
         sessionStorage.setItem('jsonHistory', JSON.stringify(newHistory));
     };
@@ -97,29 +100,32 @@ function Parse() {
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: .5 }}
+            transition={{ duration: 0.5 }}
         >
             <div className={`json-wrapper`}>
-                <div className='line-number-container'>
-                    <div className='line-number'></div>
-                </div>
+
                 <div className='textarea-container'>
+                    <div className='line-number-container' ref={lineNumbersRef}>
+                        <pre className='line-numbers'>{lineNumbers}</pre>
+                    </div>
                     <textarea
                         className='json-text-area'
                         ref={textareaRef}
                         value={jsonInput}
                         onChange={handleInputChange}
                         onScroll={handleScroll}
-                        rows="10"
-                        cols="50"
-                        placeholder="Enter JSON here..."
+                        rows='10'
+                        cols='50'
+                        placeholder='Enter JSON here...'
                     />
                 </div>
                 <div className='btn-container'>
                     <Button className='btns-jsontool' onClick={validateJson}>Validate</Button>
                     <Button className='btns-jsontool' onClick={compressJson}>Compress JSON</Button>
                     <Button className='btns-jsontool' onClick={clearJson}>Clear</Button>
-                    <Button className='btns-jsontool' onClick={toggleHistory}>{historyVisible ? 'Hide History' : 'Show History'}</Button>
+                    <Button className='btns-jsontool' onClick={toggleHistory}>
+                        {historyVisible ? 'Hide History' : 'Show History'}
+                    </Button>
                     {jsonInput && (
                         <Button className='btns-jsontool' onClick={copyText}>Copy</Button>
                     )}
@@ -134,7 +140,6 @@ function Parse() {
                 )}
             </div>
         </motion.div>
-        
     );
 }
 

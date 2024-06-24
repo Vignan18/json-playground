@@ -36,6 +36,20 @@
     }
 }
 
+.line-number-container {
+    background: #434343;
+    min-width: 3%;
+    display: flex;
+    border: 0.5px solid white;
+    border-radius: 4px 0 0 4px;
+}
+
+.line-numbers {
+    color: white;
+    padding: 0px 10px;
+    font-size: 15px;
+}
+
 .textarea-container {
     display: flex;
     justify-content: center;
@@ -47,12 +61,16 @@
     height: auto;
     width: 86%;
     color: white;
-    border: 1.5px solid white;
-    border-radius: 4px;
+    border: 0.5px solid white;
+    border-radius: 0 4px 4px 0;
     background: #00000063;
     font-size: 15px;
     box-shadow: 0 7px 14px rgb(0 0 0 / 60%);
     padding: 0 5px;
+}
+
+.json-text-area:focus {
+    border: none !important;
 }
 
 .btn-container {
@@ -75,8 +93,4 @@
     border: none !important;
     transform: scale(1.05);
     color: #080707 !important;
-}
-
-.btn-container .btns-jsontool:hover {
-    background-color: #0065ff78;
 }
