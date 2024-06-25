@@ -4,54 +4,54 @@ import { motion } from 'framer-motion'
 import Button from '@mui/material/Button';
 import './compare.css';
 
-function JsonComparator() {
-    const [inputOne, setInputOne] = useState('');
-    const [inputTwo, setInputTwo] = useState('');
-    const [differences, setDifferences] = useState('');
-    const [expanded, setExpanded] = useState(false);
-    const compareTextareaRef1 = useRef(null);
-    const compareTextareaRef2 = useRef(null);
-    const [textareaHeight, setTextareaHeight] = useState('200px');
+function Compare() {
+    // const [inputOne, setInputOne] = useState('');
+    // const [inputTwo, setInputTwo] = useState('');
+    // const [differences, setDifferences] = useState('');
+    // const [expanded, setExpanded] = useState(false);
+    // const compareTextareaRef1 = useRef(null);
+    // const compareTextareaRef2 = useRef(null);
+    // const [textareaHeight, setTextareaHeight] = useState('200px');
 
 
-    useEffect(() => {
-        if (!compareTextareaRef1.current.contains(document.activeElement) && !compareTextareaRef2.current.contains(document.activeElement)) {
-            if (expanded) {
-                setTextareaHeight(`${compareTextareaRef1.current.scrollHeight-256}em`);
-                setTextareaHeight(`${compareTextareaRef2.current.scrollHeight-256}em`);
-            } else {
-                setTextareaHeight('17rem');
-            }
-        }
+    // useEffect(() => {
+    //     if (!compareTextareaRef1.current.contains(document.activeElement) && !compareTextareaRef2.current.contains(document.activeElement)) {
+    //         if (expanded) {
+    //             setTextareaHeight(`${compareTextareaRef1.current.scrollHeight-256}em`);
+    //             setTextareaHeight(`${compareTextareaRef2.current.scrollHeight-256}em`);
+    //         } else {
+    //             setTextareaHeight('17rem');
+    //         }
+    //     }
         
-    }, [expanded, inputOne, inputTwo]);
+    // }, [expanded, inputOne, inputTwo]);
 
-    const handleInputOneChange = (event) => {
-        setInputOne(event.target.value);
-    };
+    // const handleInputOneChange = (event) => {
+    //     setInputOne(event.target.value);
+    // };
 
-    const handleInputTwoChange = (event) => {
-        setInputTwo(event.target.value);
-    };
+    // const handleInputTwoChange = (event) => {
+    //     setInputTwo(event.target.value);
+    // };
 
-    const expandWindow = () => {
-        setExpanded(!expanded);
-    };
+    // const expandWindow = () => {
+    //     setExpanded(!expanded);
+    // };
 
-    const compareInputs = () => {
-        // Use diffWordsWithSpace for word-level comparison
-        const diff = diffWordsWithSpace(inputOne, inputTwo);
-        if (diff.length === 1 && !diff[0].added && !diff[0].removed) {
-            setDifferences('No differences found.');
-        } else {
-            const formattedDiff = diff.map((part, index) => {
-                const color = part.added ? 'green' : part.removed ? 'red' : 'grey';
-                const style = { backgroundColor: color, padding: '0.1em 0', marginRight: '2px' }; // Add styles for clarity
-                return <span key={index} style={style}>{part.value}</span>;
-            });
-            setDifferences(<div style={{ whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>{formattedDiff}</div>);
-        }
-    };
+    // const compareInputs = () => {
+    //     // Use diffWordsWithSpace for word-level comparison
+    //     const diff = diffWordsWithSpace(inputOne, inputTwo);
+    //     if (diff.length === 1 && !diff[0].added && !diff[0].removed) {
+    //         setDifferences('No differences found.');
+    //     } else {
+    //         const formattedDiff = diff.map((part, index) => {
+    //             const color = part.added ? 'green' : part.removed ? 'red' : 'grey';
+    //             const style = { backgroundColor: color, padding: '0.1em 0', marginRight: '2px' }; // Add styles for clarity
+    //             return <span key={index} style={style}>{part.value}</span>;
+    //         });
+    //         setDifferences(<div style={{ whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>{formattedDiff}</div>);
+    //     }
+    // };
 
     return (
         <motion.div
@@ -59,7 +59,7 @@ function JsonComparator() {
             animate={{ opacity: 1 }}
             transition={{ duration: .5 }}
         >
-            <div className={`json-compare-wrapper ${expanded ? 'expanded' : ''}`}>
+            {/* <div className={`json-compare-wrapper ${expanded ? 'expanded' : ''}`}>
                 <button className='btn-expand-top' onClick={expandWindow}>
                     {expanded ? <i className="material-icons">expand_less</i> : <i className="material-icons">expand_more</i>}
                 </button>
@@ -93,10 +93,15 @@ function JsonComparator() {
                     <h2>Differences:</h2>
                     {differences || <p>No differences detected or input is empty.</p>}
                 </div>
-            </div>
+            </div> */}
+            <section id="hero" className='profile-container'>
+                <div className='info'>
+                    <h3 className='about-heading'>Comming Soon ...!</h3>
+                </div>
+            </section>
         </motion.div>
     );
 }
 
-export default JsonComparator;
+export default Compare;
 

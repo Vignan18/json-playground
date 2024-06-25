@@ -76,3 +76,21 @@
 .btn-container .btns-jsoncompare:hover {
     background-color: #0065ff78;
 }
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    gap: 20px;
+    text-align: left;
+    height: 100dvh;
+    min-height: 500px;
+}
+
+.about-heading {
+    color: white;
+    background: none;
+    text-align: left;
+    justify-content: left;
+    padding: 0;
+}
