@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import AceEditor from 'react-ace';
+import { FaCopy } from 'react-icons/fa';
 import History from './History/History';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -133,6 +134,11 @@ function Parse() {
                         fontSize={14}
                         showPrintMargin={false}
                     />
+                    {jsonInput && (
+                        <div className='copy-icon-container'>
+                            <FaCopy className='copy-icon' onClick={copyText} title="Copy" />
+                        </div>
+                    )}
                 </div>
                 <div className='btn-container'>
                     <Button className='btns-jsontool' onClick={validateJson}>Validate</Button>
@@ -141,9 +147,6 @@ function Parse() {
                     <Button className='btns-jsontool' onClick={toggleHistory}>
                         {historyVisible ? 'Hide History' : 'Show History'}
                     </Button>
-                    {jsonInput && (
-                        <Button className='btns-jsontool' onClick={copyText}>Copy</Button>
-                    )}
                 </div>
                 <ToastContainer />
                 <History history={history} isVisible={historyVisible} onSelect={handleSelectHistory} clearAllHistory={clearAllHistory} />

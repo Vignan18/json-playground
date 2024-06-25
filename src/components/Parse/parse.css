@@ -97,6 +97,26 @@
     justify-self: center
 }
 
+.copy-icon-container {
+    position: absolute;
+    top: 6rem;
+    right: 2.5rem;
+    color: #fff;
+    z-index: 10;
+    transition: transform 0.2s ease-in-out;
+}
+
+.copy-icon {
+    color: #fff;
+    cursor: pointer;
+    font-size: 25px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.copy-icon:hover {
+    transform: scale(1.2);
+}
+
 /* .Toastify__progress-bar {
     display: none;
 } */
