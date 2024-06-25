@@ -1,0 +1,97 @@
+/* HistoryPanel.css */
+
+.history-panel {
+    position: absolute;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100vh;
+    background-color: #212020;
+    overflow-y: auto;
+    transition: right 0.2s ease-in-out;
+    z-index: 1000;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.history-panel.open {
+    right: 0;
+    background: #212020;
+    font-size: 14px;
+    width: 400px;
+}
+
+h3 {
+    margin: 10px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.history-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.history-item {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 96%;
+    white-space: normal;
+    overflow: hidden;
+    margin: 8px;
+}
+
+.history-item:hover {
+    background-color: rgb(18, 61, 18);
+}
+
+.json {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #ddd;
+}
+
+.json:hover {
+    color: rgb(70, 238, 70);
+}
+
+.timestamp {
+    font-size: 12px;
+    font-style: italic;
+    display: flex;
+    justify-content: right;
+    margin-right: 8px;
+    margin-top: -8px;
+}
+
+.clearBtn-container {
+    position: absolute;
+    bottom: 0;
+    padding: 17px;
+    left: 0%;
+    right: 0%;
+    text-align: center;
+}
+
+.btn-clearAll {
+    color: #080707 !important;
+    background: #ffffff !important;
+    border: none;
+    margin: 4px 7px;
+    font-weight: bold;
+}
+
+.btn-clearAll:hover {
+    background: #ff7373 !important;
+    border: none !important;
+    transform: scale(1.05);
+    color: #080707 !important;
+    cursor: pointer;
+}
+

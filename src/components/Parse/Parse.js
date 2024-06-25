@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import AceEditor from 'react-ace';
+import History from './History/History';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'ace-builds/src-noconflict/mode-json5';
@@ -83,11 +84,20 @@ function Parse() {
         }
     };
 
+    const handleSelectHistory = (selectedJson) => {
+        setJsonInput(selectedJson);
+    };
+
     const updateHistory = (json) => {
         const newEntry = { json, timestamp: new Date().toLocaleString() };
         const newHistory = [newEntry, ...history].slice(0, 10);
         setHistory(newHistory);
         localStorage.setItem('jsonHistory', JSON.stringify(newHistory));
+    };
+
+    const clearAllHistory = () => {
+        setHistory([]);
+        localStorage.removeItem('jsonHistory');
     };
 
     const toggleHistory = () => {
@@ -133,13 +143,7 @@ function Parse() {
                     )}
                 </div>
                 <ToastContainer />
-                {historyVisible && (
-                    <ul>
-                        {history.map((entry, index) => (
-                            <li key={index}>{entry.timestamp}: {entry.json}</li>
-                        ))}
-                    </ul>
-                )}
+                <History history={history} isVisible={historyVisible} onSelect={handleSelectHistory} clearAllHistory={clearAllHistory} />
             </div>
         </motion.div>
     );
