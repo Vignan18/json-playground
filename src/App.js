@@ -11,9 +11,9 @@ function App() {
     <Router>
       <Header />
       <Routes>
+        <Route path="/" element={<About />} />
         <Route path="/parse" element={<Parse />} />
         <Route path="/compare" element={<Compare />} />
-        <Route path="/about" element={<About />} />
       </Routes>
       {/* <Footer /> */}
     </Router>

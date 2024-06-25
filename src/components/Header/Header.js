@@ -29,9 +29,6 @@ const Header = () => {
           <Nav.Link as={Link} to="/compare" onClick={() => handleClick('/compare')} className={`custom-nav-link ${selected === '/compare' ? 'active' : ''}`}>Compare</Nav.Link>
         </Nav>
         <Nav>
-          <Nav.Link className='social-icon' as={Link} to="/about" onClick={() => handleClick('/about')}>
-            <FaInfo size={25} />
-          </Nav.Link>
           <Nav.Link className='social-icon' href="https://github.com/gaurav-7-7/json-playground" target="_blank" rel="noopener noreferrer">
             <FaGithub size={25} />
           </Nav.Link>
