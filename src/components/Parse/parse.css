@@ -40,10 +40,11 @@
 .editor-container {
     display: flex;
     justify-content: center;
-    padding: .5rem;
+    padding: 0.5rem;
     border: 1px solid white;
     border-radius: 4px;
     height: 80vh;
+    position: relative;
 }
 
 .btn-container {
@@ -51,6 +52,7 @@
     justify-content: center;
     text-align: center;
     display: flex;
+    flex-wrap: wrap;
     padding: 1rem;
 }
 
@@ -70,15 +72,14 @@
     cursor: pointer;
 }
 
-
-/* toast.css */
+/* Toastify styles */
 .Toastify__toast-container {
-    width: 53%;
+    width: 100%;
 }
 
 .Toastify__toast {
-    min-width: 500px;
-    max-height: 50px;
+    min-width: 200px;
+    max-width: 90%;
     font-size: 15px;
     margin: auto;
     background-color: #333;
@@ -94,16 +95,20 @@
     color: white;
     margin: 0.938rem 2px 2px 5px;
     display: flex;
-    justify-self: center
+    justify-self: center;
 }
+
+/* .Toastify__progress-bar {
+    display: none;
+} */
 
 .copy-icon-container {
     position: absolute;
-    top: 6rem;
-    right: 2.5rem;
-    color: #fff;
+    top: 1rem;
+    right: 1rem;
     z-index: 10;
-    transition: transform 0.2s ease-in-out;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 .copy-icon {
@@ -117,6 +122,40 @@
     transform: scale(1.2);
 }
 
-/* .Toastify__progress-bar {
-    display: none;
-} */
+@media only screen and (max-width: 600px) {
+    .editor-container {
+        height: 60vh;
+    }
+
+    .copy-icon-container {
+        top: 5px;
+        right: 5px;
+    }
+
+    .btn-container .btns-jsontool {
+        margin: 3px;
+        font-size: 14px;
+    }
+
+    .Toastify__toast {
+        font-size: 13px;
+        min-width: 180px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .editor-container {
+        height: 50vh;
+    }
+
+    .btn-container .btns-jsontool {
+        margin: 2px;
+        font-size: 12px;
+    }
+
+    .copy-icon-container {
+        top: 5px;
+        right: 5px;
+        font-size: 20px;
+    }
+}

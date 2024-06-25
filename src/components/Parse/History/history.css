@@ -100,3 +100,58 @@ h3 {
     color: #080707 !important;
     cursor: pointer;
 }
+
+@media only screen and (max-width: 768px) {
+    .history-panel {
+        width: 300px;
+        right: -300px;
+    }
+    
+    .history-panel.open {
+        right: 0;
+    }
+    
+    h3 {
+        font-size: 18px;
+    }
+
+    .json {
+        font-size: 13px;
+    }
+
+    .timestamp {
+        font-size: 11px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .history-panel {
+        width: 100%;
+        right: -100%;
+    }
+    
+    .history-panel.open {
+        right: 0;
+    }
+    
+    h3 {
+        font-size: 16px;
+    }
+
+    .json {
+        font-size: 12px;
+    }
+
+    .timestamp {
+        font-size: 10px;
+    }
+
+    .history-item {
+        padding: 0.8rem;
+        margin: 6px;
+    }
+
+    .btn-clearAll {
+        font-size: 14px;
+    }
+}
