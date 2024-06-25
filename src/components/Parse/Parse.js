@@ -11,16 +11,28 @@ import 'ace-builds/src-noconflict/ext-language_tools';
 import './parse.css';
 
 function Parse() {
-    const [jsonInput, setJsonInput] = useState('');
+    const [jsonInput, setJsonInput] = useState(() => {
+        const savedJsonInput = localStorage.getItem('lastJsonInput');
+        return savedJsonInput || '';
+    });
     const [historyVisible, setHistoryVisible] = useState(false);
     const [history, setHistory] = useState(
-        () => JSON.parse(sessionStorage.getItem('jsonHistory')) || []
+        () => JSON.parse(localStorage.getItem('jsonHistory')) || []
     );
 
-    useEffect(() => {}, [jsonInput]);
+    useEffect(() => {
+        localStorage.setItem('lastJsonInput', jsonInput);
+    }, [jsonInput]);
 
     const handleInputChange = (newValue) => {
         setJsonInput(newValue);
+        try {
+            const parsedJson = JSON.parse(newValue);
+            const formattedJson = JSON.stringify(parsedJson, null, 2);
+            setJsonInput(formattedJson);
+            updateHistory(formattedJson);
+        } catch (err) {
+        }
     };
 
     const showError = (message) => {
@@ -73,9 +85,9 @@ function Parse() {
 
     const updateHistory = (json) => {
         const newEntry = { json, timestamp: new Date().toLocaleString() };
-        const newHistory = [newEntry, ...history].slice(0, 10); // Keep only the latest 10 entries
+        const newHistory = [newEntry, ...history].slice(0, 10);
         setHistory(newHistory);
-        sessionStorage.setItem('jsonHistory', JSON.stringify(newHistory));
+        localStorage.setItem('jsonHistory', JSON.stringify(newHistory));
     };
 
     const toggleHistory = () => {
@@ -120,8 +132,7 @@ function Parse() {
                         <Button className='btns-jsontool' onClick={copyText}>Copy</Button>
                     )}
                 </div>
-                <ToastContainer 
-                />
+                <ToastContainer />
                 {historyVisible && (
                     <ul>
                         {history.map((entry, index) => (
