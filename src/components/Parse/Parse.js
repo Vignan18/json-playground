@@ -39,7 +39,7 @@ function Parse() {
     const showError = (message) => {
         toast.error(message, {
             position: "top-center",
-            autoClose: 3000,
+            autoClose: 8000,
         });
     };
 
@@ -89,6 +89,9 @@ function Parse() {
     };
 
     const updateHistory = (json) => {
+        const isDuplicate = history.some(entry => entry.json === json);
+        if (isDuplicate) return;
+        
         const newEntry = { json, timestamp: new Date().toLocaleString() };
         const newHistory = [newEntry, ...history].slice(0, 10);
         setHistory(newHistory);
@@ -145,6 +148,12 @@ function Parse() {
                 <ToastContainer />
                 <History history={history} isVisible={historyVisible} onSelect={handleSelectHistory} clearAllHistory={clearAllHistory} />
             </div>
+            <section id="footer" className='footer-container'>
+                <p className='footer'>
+                    &copy; 2024 Gaurav Singh. <br />
+                    All rights reserved.
+                </p>
+            </section>
         </motion.div>
     );
 }

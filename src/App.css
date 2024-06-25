@@ -37,3 +37,16 @@ ul {
 ul li {
   padding: 5px 0;
 }
+
+.footer-container {
+  text-align: center;
+  background: rgba(36, 38, 39, 0.95); /* Adjusted background color with correct syntax */
+  height: 4rem;
+}
+
+
+.footer {
+  font-size: 13px;
+  color: white;
+  margin: -8px 0 0 0;
+}
