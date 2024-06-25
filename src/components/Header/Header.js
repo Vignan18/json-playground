@@ -19,7 +19,7 @@ const Header = () => {
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
-      <Navbar.Brand>
+      <Navbar.Brand as={Link} to="/">
         <Image src={logo} alt="Logo" height="30" className="d-inline-block align-top" />
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
