@@ -17,5 +17,28 @@
 }
 
 .social-icon {
-    
+    margin-left: 8px; 
+}
+
+@media only screen and (max-width: 768px) {
+    .custom-nav-link {
+        margin: 0 5px;
+        width: 15%;
+        margin-left: 2px;
+        padding-left: 6px !important;
+    }
+
+    .social-icon {
+        margin-left: 5px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .custom-nav-link {
+        margin: 0 3px;
+    }
+
+    .social-icon {
+        margin-left: 3px;
+    }
 }
