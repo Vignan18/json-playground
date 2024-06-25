@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import AceEditor from 'react-ace';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import 'ace-builds/src-noconflict/mode-json5';
 import 'ace-builds/src-noconflict/theme-monokai';
 import 'ace-builds/src-noconflict/ext-language_tools';
@@ -10,18 +12,22 @@ import './parse.css';
 
 function Parse() {
     const [jsonInput, setJsonInput] = useState('');
-    const [error, setError] = useState('');
     const [historyVisible, setHistoryVisible] = useState(false);
     const [history, setHistory] = useState(
         () => JSON.parse(sessionStorage.getItem('jsonHistory')) || []
     );
 
-    useEffect(() => {
-    }, [jsonInput]);
+    useEffect(() => {}, [jsonInput]);
 
     const handleInputChange = (newValue) => {
         setJsonInput(newValue);
-        setError('');
+    };
+
+    const showError = (message) => {
+        toast.error(message, {
+            position: "top-center",
+            autoClose: 3000,
+        });
     };
 
     const validateJson = () => {
@@ -30,9 +36,8 @@ function Parse() {
             const formattedJson = JSON.stringify(parsedJson, null, 2);
             setJsonInput(formattedJson);
             updateHistory(formattedJson);
-            setError('');
         } catch (err) {
-            setError(`Invalid JSON! Error: ${err.message}`);
+            showError(`Invalid JSON! Error: ${err.message}`);
         }
     };
 
@@ -42,26 +47,27 @@ function Parse() {
             const compressedJson = JSON.stringify(parsedJson);
             setJsonInput(compressedJson);
             updateHistory(compressedJson);
-            setError('');
         } catch (err) {
-            setError(`Cannot compress JSON! Error: ${err.message}`);
+            showError(`Cannot compress JSON! Error: ${err.message}`);
         }
     };
 
     const clearJson = () => {
         setJsonInput('');
-        setError('');
     };
 
     const copyText = () => {
         if (navigator.clipboard) {
             navigator.clipboard.writeText(jsonInput).then(() => {
-                alert('Copied to clipboard!');
+                toast.success('Copied to clipboard!', {
+                    position: "top-center",
+                    autoClose: 2000,
+                });
             }).catch(err => {
-                setError(`Failed to copy text: ${err.message}`);
+                showError(`Failed to copy text: ${err.message}`);
             });
         } else {
-            setError('Clipboard API not available.');
+            showError('Clipboard API not available.');
         }
     };
 
@@ -114,7 +120,8 @@ function Parse() {
                         <Button className='btns-jsontool' onClick={copyText}>Copy</Button>
                     )}
                 </div>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+                <ToastContainer 
+                />
                 {historyVisible && (
                     <ul>
                         {history.map((entry, index) => (

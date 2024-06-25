@@ -66,4 +66,36 @@
     border: none !important;
     transform: scale(1.05);
     color: #080707 !important;
+    cursor: pointer;
+}
+
+
+/* toast.css */
+.Toastify__toast-container {
+    width: 100%;
+}
+
+.Toastify__toast {
+    min-width: 500px;
+    max-height: 50px;
+    font-size: 15px;
+    margin: auto;
+    background-color: #333;
+    color: white;
+}
+
+.Toastify__toast-body {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.Toastify__close-button {
+    color: white;
+    margin: 0.938rem 2px 2px 5px;
+    display: flex;
+    justify-self: center
+}
+
+.Toastify__progress-bar {
+    display: none;
 }
