@@ -20,6 +20,10 @@
     width: 400px;
 }
 
+.history-panel.close {
+    display: none;
+}
+
 h3 {
     padding: 16.858px 10px;;
     margin: 0;
