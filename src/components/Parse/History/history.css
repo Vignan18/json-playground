@@ -29,6 +29,13 @@ h3 {
     justify-content: center;
 }
 
+.close-icon {
+    cursor: pointer;
+    left: 1.2rem;
+    font-size: 20px;
+    position: absolute;
+}
+
 .history-list {
     list-style-type: none;
     padding: 0;
@@ -44,11 +51,13 @@ h3 {
     width: 96%;
     white-space: normal;
     overflow: hidden;
-    margin: 8px;
+    margin: 14px 8px;
 }
 
 .history-item:hover {
+    color: rgb(70, 238, 70);
     background-color: rgb(18, 61, 18);
+    cursor: pointer !important;
 }
 
 .json {
@@ -56,13 +65,13 @@ h3 {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: white;
+    color: inherit;
     font-size: 14px;
     font-weight: normal;
 }
 
 .json:hover {
-    color: rgb(70, 238, 70);
+    color: inherit;
 }
 
 .timestamp {
@@ -73,7 +82,7 @@ h3 {
     display: flex;
     justify-content: right;
     margin-right: 8px;
-    margin-top: -8px;
+    margin-top: -14px;
 }
 
 .clearBtn-container {

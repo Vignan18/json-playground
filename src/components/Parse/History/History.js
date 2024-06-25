@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { FaTimes } from 'react-icons/fa'
 import './history.css'
 
-function History({ history, isVisible, onSelect, clearAllHistory }) {
+function History({ history, isVisible, onSelect, clearAllHistory, toggleHistory }) {
 
     const handleClick = (json) => {
         onSelect(json);
@@ -12,9 +13,20 @@ function History({ history, isVisible, onSelect, clearAllHistory }) {
         clearAllHistory();
     };
 
+    const closePanel = () => {
+        toggleHistory();
+    };
+
     return (
         <div className={`history-panel ${isVisible ? 'open' : 'close'}`}>
-            <h3>History</h3>
+            <div>
+                <h3>
+                    <span className="close-icon" onClick={closePanel}>
+                        <FaTimes />
+                    </span>
+                    History
+                </h3>
+            </div>
             <ul>
                 {history.map((entry, index) => (
                     <span>

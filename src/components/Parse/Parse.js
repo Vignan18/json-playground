@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import AceEditor from 'react-ace';
-import { FaCopy } from 'react-icons/fa';
+import { FaCopy, FaCheck } from 'react-icons/fa';
 import History from './History/History';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,7 +21,7 @@ function Parse() {
     const [history, setHistory] = useState(
         () => JSON.parse(localStorage.getItem('jsonHistory')) || []
     );
-
+    const [showCopyIcon, setShowCopyIcon] = useState(false);
     useEffect(() => {
         localStorage.setItem('lastJsonInput', jsonInput);
     }, [jsonInput]);
@@ -40,7 +40,8 @@ function Parse() {
     const showError = (message) => {
         toast.error(message, {
             position: "top-center",
-            autoClose: 8000,
+            autoClose: 5000,
+            hideProgressBar: true
         });
     };
 
@@ -73,10 +74,8 @@ function Parse() {
     const copyText = () => {
         if (navigator.clipboard) {
             navigator.clipboard.writeText(jsonInput).then(() => {
-                toast.success('Copied to clipboard!', {
-                    position: "top-center",
-                    autoClose: 2000,
-                });
+                setShowCopyIcon(true); // Show copy icon
+                setTimeout(() => setShowCopyIcon(false), 2000);
             }).catch(err => {
                 showError(`Failed to copy text: ${err.message}`);
             });
@@ -92,7 +91,7 @@ function Parse() {
     const updateHistory = (json) => {
         const isDuplicate = history.some(entry => entry.json === json);
         if (isDuplicate) return;
-        
+
         const newEntry = { json, timestamp: new Date().toLocaleString() };
         const newHistory = [newEntry, ...history].slice(0, 10);
         setHistory(newHistory);
@@ -134,7 +133,11 @@ function Parse() {
                         fontSize={14}
                         showPrintMargin={false}
                     />
-                    {jsonInput && (
+                    {showCopyIcon ? (
+                        <div className='copy-icon-container'>
+                            <FaCheck className='copy-icon-check' />
+                        </div>
+                    ) : (
                         <div className='copy-icon-container'>
                             <FaCopy className='copy-icon' onClick={copyText} title="Copy" />
                         </div>
@@ -143,13 +146,19 @@ function Parse() {
                 <div className='btn-container'>
                     <Button className='btns-jsontool' onClick={validateJson}>Validate</Button>
                     <Button className='btns-jsontool' onClick={compressJson}>Compress JSON</Button>
-                    <Button className='btns-jsontool' onClick={clearJson}>Clear</Button>
-                    <Button className='btns-jsontool' onClick={toggleHistory}>
-                        {historyVisible ? 'Hide History' : 'Show History'}
-                    </Button>
+                    <Button className='btns-clear' onClick={clearJson}>Clear</Button>
+                    {!historyVisible && (
+                        <Button className='btns-history' onClick={toggleHistory}>Show History</Button>)
+                    }
                 </div>
                 <ToastContainer />
-                <History history={history} isVisible={historyVisible} onSelect={handleSelectHistory} clearAllHistory={clearAllHistory} />
+                <History
+                    history={history}
+                    isVisible={historyVisible}
+                    onSelect={handleSelectHistory}
+                    clearAllHistory={clearAllHistory}
+                    toggleHistory={toggleHistory}
+                />
             </div>
             <section id="footer" className='footer-container'>
                 <p className='footer'>

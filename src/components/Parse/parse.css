@@ -53,23 +53,33 @@
     text-align: center;
     display: flex;
     flex-wrap: wrap;
-    padding: 1rem;
+    padding: 1rem 0.5rem;
 }
 
-.btn-container .btns-jsontool {
+.btn-container .btns-jsontool,
+.btns-history, .btns-clear {
     color: #080707;
     background: #ffffff;
     border: none;
     margin: 4px 7px;
     font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.2s ease-in-out;
 }
 
-.btn-container .btns-jsontool:hover {
+.btn-container .btns-clear {
+    margin-right: auto;
+}
+
+.btn-container .btns-jsontool:hover,
+.btns-history:hover, .btns-clear:hover {
     background: #ffffff !important;
     border: none !important;
     transform: scale(1.05);
     color: #080707 !important;
-    cursor: pointer;
+}
+
+.btns-history {
+    margin-left: auto;
 }
 
 /* Toastify styles */
@@ -78,9 +88,8 @@
 }
 
 .Toastify__toast {
-    min-width: 200px;
-    max-width: 90%;
-    font-size: 15px;
+    max-width: 53%;
+    font-size: 14px;
     margin: auto;
     background-color: #333;
     color: white;
@@ -98,17 +107,15 @@
     justify-self: center;
 }
 
-/* .Toastify__progress-bar {
-    display: none;
-} */
-
 .copy-icon-container {
     position: absolute;
     top: 1rem;
-    right: 1rem;
+    right: 1.5rem;
     z-index: 10;
-    border-radius: 5px;
-    padding: 5px;
+    border-radius: 3px;
+    padding: 9px;
+    background: #191717;
+    transition: transform 0.2s ease-in-out;
 }
 
 .copy-icon {
@@ -118,7 +125,13 @@
     transition: transform 0.2s ease-in-out;
 }
 
-.copy-icon:hover {
+.copy-icon-check {
+    color: rgb(70, 238, 70);
+    font-size: 25px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.copy-icon-container:hover {
     transform: scale(1.2);
 }
 
