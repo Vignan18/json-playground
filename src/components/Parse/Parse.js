@@ -1,29 +1,27 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
+import AceEditor from 'react-ace';
+import 'ace-builds/src-noconflict/mode-json5';
+import 'ace-builds/src-noconflict/theme-monokai';
+import 'ace-builds/src-noconflict/ext-language_tools';
+
 import './parse.css';
 
 function Parse() {
     const [jsonInput, setJsonInput] = useState('');
     const [error, setError] = useState('');
-    const [lineNumbers, setLineNumbers] = useState('1');
     const [historyVisible, setHistoryVisible] = useState(false);
     const [history, setHistory] = useState(
         () => JSON.parse(sessionStorage.getItem('jsonHistory')) || []
     );
-    const textareaRef = useRef(null);
-    const lineNumbersRef = useRef(null);
 
     useEffect(() => {
-        // Handle initial line numbers calculation
-        updateLineNumbers(jsonInput);
     }, [jsonInput]);
 
-    const handleInputChange = (event) => {
-        const { value } = event.target;
-        setJsonInput(value);
+    const handleInputChange = (newValue) => {
+        setJsonInput(newValue);
         setError('');
-        updateLineNumbers(value);
     };
 
     const validateJson = () => {
@@ -31,7 +29,6 @@ function Parse() {
             const parsedJson = JSON.parse(jsonInput);
             const formattedJson = JSON.stringify(parsedJson, null, 2);
             setJsonInput(formattedJson);
-            updateLineNumbers(formattedJson);
             updateHistory(formattedJson);
             setError('');
         } catch (err) {
@@ -44,7 +41,6 @@ function Parse() {
             const parsedJson = JSON.parse(jsonInput);
             const compressedJson = JSON.stringify(parsedJson);
             setJsonInput(compressedJson);
-            updateLineNumbers(compressedJson);
             updateHistory(compressedJson);
             setError('');
         } catch (err) {
@@ -55,7 +51,6 @@ function Parse() {
     const clearJson = () => {
         setJsonInput('');
         setError('');
-        setLineNumbers('1'); // Reset line numbers
     };
 
     const copyText = () => {
@@ -67,21 +62,6 @@ function Parse() {
             });
         } else {
             setError('Clipboard API not available.');
-        }
-    };
-
-    const updateLineNumbers = (text) => {
-        const lines = text.split('\n');
-        const newLineNumbers = lines.map((_, index) => index + 1).join('\n');
-        setLineNumbers(newLineNumbers);
-        if (lineNumbersRef.current) {
-            lineNumbersRef.current.scrollTop = textareaRef.current.scrollTop;
-        }
-    };
-
-    const handleScroll = () => {
-        if (lineNumbersRef.current) {
-            lineNumbersRef.current.scrollTop = textareaRef.current.scrollTop;
         }
     };
 
@@ -103,20 +83,24 @@ function Parse() {
             transition={{ duration: 0.5 }}
         >
             <div className={`json-wrapper`}>
-
-                <div className='textarea-container'>
-                    <div className='line-number-container' ref={lineNumbersRef}>
-                        <pre className='line-numbers'>{lineNumbers}</pre>
-                    </div>
-                    <textarea
-                        className='json-text-area'
-                        ref={textareaRef}
-                        value={jsonInput}
+                <div className='editor-container'>
+                    <AceEditor
+                        mode="json5"
+                        theme="monokai"
                         onChange={handleInputChange}
-                        onScroll={handleScroll}
-                        rows='10'
-                        cols='50'
-                        placeholder='Enter JSON here...'
+                        value={jsonInput}
+                        placeholder='Enter your json here ...'
+                        name="jsonEditor"
+                        editorProps={{ $blockScrolling: true }}
+                        setOptions={{
+                            enableBasicAutocompletion: true,
+                            enableLiveAutocompletion: true,
+                            enableSnippets: true,
+                        }}
+                        width="100%"
+                        height="100%"
+                        fontSize={14}
+                        showPrintMargin={false}
                     />
                 </div>
                 <div className='btn-container'>

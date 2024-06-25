@@ -1,8 +1,8 @@
 .json-wrapper {
     transition: height 0.3s ease;
     overflow: hidden;
+    margin: 1rem;
 }
-
 
 .btn-expand-bottom {
     margin: 5px 36px 0px 2px;
@@ -36,41 +36,13 @@
     }
 }
 
-.line-number-container {
-    background: #434343;
-    min-width: 3%;
-    display: flex;
-    border: 0.5px solid white;
-    border-radius: 4px 0 0 4px;
-}
-
-.line-numbers {
-    color: white;
-    padding: 0px 10px;
-    font-size: 15px;
-}
-
-.textarea-container {
+.editor-container {
     display: flex;
     justify-content: center;
-    padding: 2rem 10px 10px 10px;
-    height: 43rem;
-}
-
-.json-text-area {
-    height: auto;
-    width: 86%;
-    color: white;
-    border: 0.5px solid white;
-    border-radius: 0 4px 4px 0;
-    background: #00000063;
-    font-size: 15px;
-    box-shadow: 0 7px 14px rgb(0 0 0 / 60%);
-    padding: 0 5px;
-}
-
-.json-text-area:focus {
-    border: none !important;
+    padding: .5rem;
+    border: 1px solid white;
+    border-radius: 4px;
+    height: 80vh;
 }
 
 .btn-container {
@@ -78,6 +50,7 @@
     justify-content: center;
     text-align: center;
     display: flex;
+    padding: 1rem;
 }
 
 .btn-container .btns-jsontool {
