@@ -1,0 +1,21 @@
+.custom-nav-link {
+    transition: color 0.3s ease;
+    margin: 0 0 0 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    color: white !important;
+}
+
+.navbar-dark .navbar-nav .nav-link.custom-nav-link:hover,
+.navbar-dark .navbar-nav .nav-link.custom-nav-link:focus {
+    background-color: #212020;
+    text-decoration: none;
+}
+
+.navbar-dark .navbar-nav .nav-link.custom-nav-link.active {
+    background-color: #212020;
+}
+
+.social-icon {
+    
+}

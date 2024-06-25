@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { diffWordsWithSpace } from 'diff';
+import { motion } from 'framer-motion'
 import Button from '@mui/material/Button';
-import './JsonComparator.css';
+import './compare.css';
 
 function JsonComparator() {
     const [inputOne, setInputOne] = useState('');
@@ -53,41 +54,47 @@ function JsonComparator() {
     };
 
     return (
-        <div className={`json-compare-wrapper ${expanded ? 'expanded' : ''}`}>
-            <button className='btn-expand-top' onClick={expandWindow}>
-                {expanded ? <i className="material-icons">expand_less</i> : <i className="material-icons">expand_more</i>}
-            </button>
-            <h3 className='json-compare-heading'>Check Difference</h3>
-            <div className='textareas-container'>
-                <textarea
-                    className='diff-text-area-left'
-                    value={inputOne}
-                    ref={compareTextareaRef1}
-                    onChange={handleInputOneChange}
-                    rows="10"
-                    cols="50"
-                    placeholder="Enter Text..."
-                    style={{ resize: 'none', height: textareaHeight }}
-                />
-                <textarea
-                    className='diff-text-area-right'
-                    value={inputTwo}
-                    ref={compareTextareaRef2}
-                    onChange={handleInputTwoChange}
-                    rows="10"
-                    cols="50"
-                    placeholder="Enter Text..."
-                    style={{ resize: 'none', height: textareaHeight }}
-                />
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: .5 }}
+        >
+            <div className={`json-compare-wrapper ${expanded ? 'expanded' : ''}`}>
+                <button className='btn-expand-top' onClick={expandWindow}>
+                    {expanded ? <i className="material-icons">expand_less</i> : <i className="material-icons">expand_more</i>}
+                </button>
+                <h3 className='json-compare-heading'>Check Difference</h3>
+                <div className='textareas-container'>
+                    <textarea
+                        className='diff-text-area-left'
+                        value={inputOne}
+                        ref={compareTextareaRef1}
+                        onChange={handleInputOneChange}
+                        rows="10"
+                        cols="50"
+                        placeholder="Enter Text..."
+                        style={{ resize: 'none', height: textareaHeight }}
+                    />
+                    <textarea
+                        className='diff-text-area-right'
+                        value={inputTwo}
+                        ref={compareTextareaRef2}
+                        onChange={handleInputTwoChange}
+                        rows="10"
+                        cols="50"
+                        placeholder="Enter Text..."
+                        style={{ resize: 'none', height: textareaHeight }}
+                    />
+                </div>
+                <div className='btn-container'>
+                    <Button className='btns-jsoncompare' onClick={compareInputs}>Compare</Button>
+                </div>
+                <div>
+                    <h2>Differences:</h2>
+                    {differences || <p>No differences detected or input is empty.</p>}
+                </div>
             </div>
-            <div className='btn-container'>
-                <Button className='btns-jsoncompare' onClick={compareInputs}>Compare</Button>
-            </div>
-            <div>
-                <h2>Differences:</h2>
-                {differences || <p>No differences detected or input is empty.</p>}
-            </div>
-        </div>
+        </motion.div>
     );
 }
 

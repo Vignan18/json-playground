@@ -1,0 +1,101 @@
+.json-wrapper {
+    transition: height 0.3s ease;
+    overflow: hidden;
+    margin: 1rem;
+}
+
+.btn-expand-bottom {
+    margin: 5px 36px 0px 2px;
+    padding: 2px 0 1px 0;
+    float: right;
+    color: #060606;
+    border: none;
+    cursor: pointer;
+    background-color: white;
+}
+
+.material-icons {
+    font-size: 35px;
+}
+
+.json-heading {
+    background: #f1ac00;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 7px;
+    margin-bottom: 5px;
+    max-width: 80%;
+    padding: 1rem 20px;
+    border-radius: 4px;
+}
+
+@media only screen and (max-width: 600px) {
+    .json-heading {
+        font-size: 1.5em;
+    }
+}
+
+.editor-container {
+    display: flex;
+    justify-content: center;
+    padding: .5rem;
+    border: 1px solid white;
+    border-radius: 4px;
+    height: 80vh;
+}
+
+.btn-container {
+    margin: 0;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    padding: 1rem;
+}
+
+.btn-container .btns-jsontool {
+    color: #080707;
+    background: #ffffff;
+    border: none;
+    margin: 4px 7px;
+    font-weight: bold;
+}
+
+.btn-container .btns-jsontool:hover {
+    background: #ffffff !important;
+    border: none !important;
+    transform: scale(1.05);
+    color: #080707 !important;
+    cursor: pointer;
+}
+
+
+/* toast.css */
+.Toastify__toast-container {
+    width: 100%;
+}
+
+.Toastify__toast {
+    min-width: 500px;
+    max-height: 50px;
+    font-size: 15px;
+    margin: auto;
+    background-color: #333;
+    color: white;
+}
+
+.Toastify__toast-body {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.Toastify__close-button {
+    color: white;
+    margin: 0.938rem 2px 2px 5px;
+    display: flex;
+    justify-self: center
+}
+
+.Toastify__progress-bar {
+    display: none;
+}
