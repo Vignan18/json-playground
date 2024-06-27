@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import AceEditor from 'react-ace';
@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'ace-builds/src-noconflict/mode-json5';
 import 'ace-builds/src-noconflict/theme-monokai';
 import 'ace-builds/src-noconflict/ext-language_tools';
+import 'ace-builds/src-noconflict/ext-searchbox';
 
 import './parse.css';
 
@@ -22,9 +23,23 @@ function Parse() {
         () => JSON.parse(localStorage.getItem('jsonHistory')) || []
     );
     const [showCopyIcon, setShowCopyIcon] = useState(false);
+    const editorRef = useRef(null);
+
     useEffect(() => {
         localStorage.setItem('lastJsonInput', jsonInput);
     }, [jsonInput]);
+
+    useEffect(() => {
+        if (editorRef.current) {
+            editorRef.current.editor.commands.addCommand({
+                name: 'showSearchBox',
+                bindKey: { win: 'Ctrl-F', mac: 'Cmd-F' },
+                exec: () => {
+                    editorRef.current.editor.execCommand('find');
+                }
+            });
+        }
+    }, []);
 
     const handleInputChange = (newValue) => {
         setJsonInput(newValue);
@@ -74,7 +89,7 @@ function Parse() {
     const copyText = () => {
         if (navigator.clipboard) {
             navigator.clipboard.writeText(jsonInput).then(() => {
-                setShowCopyIcon(true); // Show copy icon
+                setShowCopyIcon(true);
                 setTimeout(() => setShowCopyIcon(false), 2000);
             }).catch(err => {
                 showError(`Failed to copy text: ${err.message}`);
@@ -132,6 +147,7 @@ function Parse() {
                         height="100%"
                         fontSize={14}
                         showPrintMargin={false}
+                        ref={editorRef}
                     />
                     {showCopyIcon ? (
                         <div className='copy-icon-container'>
