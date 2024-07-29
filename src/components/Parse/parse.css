@@ -58,8 +58,8 @@
 
 .btn-container .btns-jsontool,
 .btns-history, .btns-clear {
-    color: #080707;
-    background: #ffffff;
+    color: #080707 !important;
+    background: #ffffff !important;
     border: none;
     margin: 4px 7px;
     font-weight: bold;

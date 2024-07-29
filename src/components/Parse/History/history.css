@@ -5,12 +5,16 @@
     width: 400px;
     height: 100vh;
     background-color: #212020;
-    overflow-y: auto;
     transition: right 0.3s ease-in-out;
     z-index: 1000;
     color: white;
     font-size: 16px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+}
+
+.list-container {
+    height: 95vh;
+    overflow-y: auto;
 }
 
 .history-panel.open {
@@ -87,7 +91,9 @@ h3 {
 
 .clearBtn-container {
     position: absolute;
-    bottom: 0;
+    width: 50%;
+    margin: auto;
+    bottom: 0.8rem;
     padding: 17px;
     left: 0;
     right: 0;

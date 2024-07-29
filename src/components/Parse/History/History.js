@@ -27,18 +27,20 @@ function History({ history, isVisible, onSelect, clearAllHistory, toggleHistory 
                     History
                 </h3>
             </div>
-            <ul>
-                {history.map((entry, index) => (
-                    <span>
-                        <li key={index} className="history-item" onClick={() => handleClick(entry.json)}>
-                            <span className="json">{entry.json}</span>
-                        </li>
-                        <li>
-                            <span className="timestamp">{entry.timestamp}</span>
-                        </li>
-                    </span>
-                ))}
-            </ul>
+            <div className='list-container'>
+                <ul>
+                    {history.map((entry, index) => (
+                        <span>
+                            <li key={index} className="history-item" onClick={() => handleClick(entry.json)}>
+                                <span className="json">{entry.json}</span>
+                            </li>
+                            <li>
+                                <span className="timestamp">{entry.timestamp}</span>
+                            </li>
+                        </span>
+                    ))}
+                </ul>
+            </div>
             <div className="clearBtn-container">
                 <Button className="btn-clearAll" onClick={handleClearAll}>Clear All</Button>
             </div>
