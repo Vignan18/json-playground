@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import AceEditor from 'react-ace';
-import { FaCopy, FaCheck } from 'react-icons/fa';
+import { FaCopy, FaCheck, FaHistory } from 'react-icons/fa';
 import History from './History/History';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -164,8 +164,9 @@ function Parse() {
                     <Button className='btns-jsontool' onClick={compressJson}>Compress JSON</Button>
                     <Button className='btns-clear' onClick={clearJson}>Clear</Button>
                     {!historyVisible && (
-                        <Button className='btns-history' onClick={toggleHistory}>Show History</Button>)
-                    }
+                        <FaHistory className='history-icon' onClick={toggleHistory} title="Show History" />
+                        // <Button className='btns-history' onClick={toggleHistory}>Show History</Button>
+                    )}
                 </div>
                 <ToastContainer />
                 <History

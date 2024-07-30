@@ -125,6 +125,14 @@
     transition: transform 0.2s ease-in-out;
 }
 
+.history-icon {
+    color: #fff;
+    cursor: pointer;
+    margin: 0 1rem 0 0;
+    font-size: 41px;
+    transition: transform 0.2s ease-in-out;
+}
+
 .copy-icon-check {
     color: rgb(70, 238, 70);
     font-size: 25px;
