@@ -155,7 +155,18 @@
 
     .btn-container .btns-jsontool {
         margin: 3px;
-        font-size: 14px;
+        font-size: 11px;
+        height: auto;
+        width: auto;
+    }
+    .btn-container .btns-clear {
+        font-size: 11px;
+        height: auto;
+        width: auto;
+    }
+
+    .btn-container .history-icon {
+        
     }
 
     .Toastify__toast {

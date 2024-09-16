@@ -2,12 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import AceEditor from 'react-ace';
+import brace from 'brace'
 import { FaCopy, FaCheck, FaHistory } from 'react-icons/fa';
 import History from './History/History';
 import { ToastContainer, toast } from 'react-toastify';
+import 'brace/mode/json'
+import 'brace/theme/merbivore_soft'
 import 'react-toastify/dist/ReactToastify.css';
-import 'ace-builds/src-noconflict/mode-json5';
-import 'ace-builds/src-noconflict/theme-monokai';
 import 'ace-builds/src-noconflict/ext-language_tools';
 import 'ace-builds/src-noconflict/ext-searchbox';
 
@@ -67,7 +68,8 @@ function Parse() {
             setJsonInput(formattedJson);
             updateHistory(formattedJson);
         } catch (err) {
-            showError(`Invalid JSON! Error: ${err.message}`);
+            console.log(err.message)
+            // showError(`Invalid JSON! Error: ${err.message}`);
         }
     };
 
@@ -78,7 +80,7 @@ function Parse() {
             setJsonInput(compressedJson);
             updateHistory(compressedJson);
         } catch (err) {
-            showError(`Cannot compress JSON! Error: ${err.message}`);
+            // showError(`Cannot compress JSON! Error: ${err.message}`);
         }
     };
 
@@ -131,18 +133,16 @@ function Parse() {
             <div className={`json-wrapper`}>
                 <div className='editor-container'>
                     <AceEditor
-                        mode="json5"
-                        theme="monokai"
+                        mode="json"
+                        theme="merbivore_soft"
                         onChange={handleInputChange}
                         value={jsonInput}
                         placeholder='Enter your json here ...'
                         name="jsonEditor"
                         editorProps={{ $blockScrolling: true }}
-                        setOptions={{
-                            enableBasicAutocompletion: true,
-                            enableLiveAutocompletion: true,
-                            enableSnippets: true,
-                        }}
+                        enableBasicAutocompletion={true}
+                        enableLiveAutocompletion={true}
+                        enableSnippets={true}
                         width="100%"
                         height="100%"
                         fontSize={14}
@@ -177,12 +177,12 @@ function Parse() {
                     toggleHistory={toggleHistory}
                 />
             </div>
-            <section id="footer" className='footer-container'>
+            {/* <section id="footer" className='footer-container'>
                 <p className='footer'>
                     &copy; 2024 Gaurav Singh. <br />
                     All rights reserved.
                 </p>
-            </section>
+            </section> */}
         </motion.div>
     );
 }

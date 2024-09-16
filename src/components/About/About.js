@@ -36,12 +36,12 @@ const About = () => {
                                 </p>
                             </div>
                         </section>
-                        <section id="footer" className='footer-container'>
+                        {/* <section id="footer" className='footer-container'>
                             <p className='footer'>
                                 &copy; 2024 Gaurav Singh. <br />
                                 All rights reserved.
                             </p>
-                        </section>
+                        </section> */}
                     </motion.div>
                 </Col>
             </Row>

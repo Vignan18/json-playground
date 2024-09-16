@@ -25,10 +25,10 @@ const Header = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/parse" onClick={() => handleClick('/parse')} className={`custom-nav-link ${selected === '/parse' ? 'active' : ''}`}>Parse</Nav.Link>
-          <Nav.Link as={Link} to="/compare" onClick={() => handleClick('/compare')} className={`custom-nav-link ${selected === '/compare' ? 'active' : ''}`}>Compare</Nav.Link>
+          <Nav.Link as={Link} to="/parse" onClick={() => handleClick('/parse')} className={`custom-nav-link-p ${selected === '/parse' ? 'active' : ''}`}>Parse</Nav.Link>
+          <Nav.Link as={Link} to="/compare" onClick={() => handleClick('/compare')} className={`custom-nav-link-c ${selected === '/compare' ? 'active' : ''}`}>Compare</Nav.Link>
         </Nav>
-        <Nav>
+        <Nav className='github-social'>
           <Nav.Link className='social-icon' href="https://github.com/gaurav-7-7/json-playground" target="_blank" rel="noopener noreferrer">
             <FaGithub size={25} />
           </Nav.Link>
