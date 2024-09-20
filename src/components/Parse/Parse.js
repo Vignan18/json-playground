@@ -69,7 +69,7 @@ function Parse() {
             updateHistory(formattedJson);
         } catch (err) {
             console.log(err.message)
-            // showError(`Invalid JSON! Error: ${err.message}`);
+            showError(`Invalid JSON! Error: ${err.message}`);
         }
     };
 
@@ -80,7 +80,7 @@ function Parse() {
             setJsonInput(compressedJson);
             updateHistory(compressedJson);
         } catch (err) {
-            // showError(`Cannot compress JSON! Error: ${err.message}`);
+            showError(`Cannot compress JSON! Error: ${err.message}`);
         }
     };
 
