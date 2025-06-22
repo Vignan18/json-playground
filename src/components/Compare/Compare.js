@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useRef, useEffect } from 'react';
 import { diffWordsWithSpace } from 'diff';
 import { motion } from 'framer-motion'

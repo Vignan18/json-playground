@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Image } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';

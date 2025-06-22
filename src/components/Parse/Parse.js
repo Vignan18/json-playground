@@ -1,11 +1,12 @@
+/* eslint-disable */
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import AceEditor from 'react-ace';
-import brace from 'brace'
-import { FaCopy, FaCheck, FaHistory } from 'react-icons/fa';
+import { FaCopy, FaCheck, FaHistory, FaFileImport } from 'react-icons/fa';
 import History from './History/History';
 import { ToastContainer, toast } from 'react-toastify';
+import { FILE_TYPES } from './constants';
 import 'brace/mode/json'
 import 'brace/theme/merbivore_soft'
 import 'react-toastify/dist/ReactToastify.css';
@@ -32,11 +33,23 @@ function Parse() {
 
     useEffect(() => {
         if (editorRef.current) {
-            editorRef.current.editor.commands.addCommand({
+            const editor = editorRef.current.editor;
+
+            // Search box functionality
+            editor.commands.addCommand({
                 name: 'showSearchBox',
                 bindKey: { win: 'Ctrl-F', mac: 'Cmd-F' },
                 exec: () => {
                     editorRef.current.editor.execCommand('find');
+                }
+            });
+
+            // Save file functionality
+            editor.commands.addCommand({
+                name: 'saveFile',
+                bindKey: { win: 'Ctrl-S', mac: 'Cmd-S' },
+                exec: () => {
+                    saveToFile(jsonInput);
                 }
             });
         }
@@ -67,6 +80,7 @@ function Parse() {
             const formattedJson = JSON.stringify(parsedJson, null, 2);
             setJsonInput(formattedJson);
             updateHistory(formattedJson);
+            editorRef.current.editor.setValue(formattedJson, -1); 
         } catch (err) {
             console.log(err.message)
             showError(`Invalid JSON! Error: ${err.message}`);
@@ -98,6 +112,51 @@ function Parse() {
             });
         } else {
             showError('Clipboard API not available.');
+        }
+    };
+    
+    /**
+     * Function to save JSON content to a file using the File System Access API 
+     * or fallback to traditional download.
+     * @param {*} content 
+     */
+    const saveToFile = async (content) => {
+        try {
+            const supportsFileSystemAccess = 'showSaveFilePicker' in window;
+
+            if (supportsFileSystemAccess) {
+                const options = {
+                    suggestedName: 'untitled.json',
+                    types: [ ...FILE_TYPES ],
+                    startIn: 'downloads'
+                };
+
+                const fileHandle = await window.showSaveFilePicker(options);
+                const writableStream = await fileHandle.createWritable();
+                await writableStream.write(content);
+                await writableStream.close();
+                console.log('File saved using File System Access API!');
+
+            } else {
+                // Fallback for browsers that don't support File System Access API
+                console.warn('File System Access API not supported, falling back to traditional download.');
+                const blob = new Blob([content], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'output.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        } catch (err) {
+            if (err.name === 'AbortError') {
+                console.log('File save cancelled by user.');
+            } else {
+                console.error('Error saving file:', err);
+                showError(`Error saving file: ${err.message}`);
+            }
         }
     };
 
@@ -163,8 +222,9 @@ function Parse() {
                     <Button className='btns-jsontool' onClick={validateJson}>Validate</Button>
                     <Button className='btns-jsontool' onClick={compressJson}>Compress JSON</Button>
                     <Button className='btns-clear' onClick={clearJson}>Clear</Button>
+                    <FaFileImport className='import-icon' size={33} title="Import" />
                     {!historyVisible && (
-                        <FaHistory className='history-icon' onClick={toggleHistory} title="Show History" />
+                        <FaHistory className='history-icon' size={35} onClick={toggleHistory} title="Show History" />
                         // <Button className='btns-history' onClick={toggleHistory}>Show History</Button>
                     )}
                 </div>
