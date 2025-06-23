@@ -3,7 +3,17 @@
     overflow: hidden;
     margin: 1rem;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 }
+
+.button-row-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+}
+
 
 .btn-expand-bottom {
     margin: 5px 36px 0px 2px;
@@ -47,7 +57,7 @@
     position: relative;
 }
 
-.btn-container {
+.btn-container-a, .btn-container-h {
     margin: 0;
     justify-content: center;
     text-align: center;
@@ -56,7 +66,7 @@
     padding: 1rem 0.5rem;
 }
 
-.btn-container .btns-jsontool,
+.btn-container-a .btns-jsontool,
 .btns-history, .btns-clear {
     color: #080707 !important;
     background: #ffffff !important;
@@ -67,7 +77,7 @@
 }
 
 
-.btn-container .btns-jsontool:hover,
+.btn-container-a .btns-jsontool:hover,
 .btns-history:hover, .btns-clear:hover {
     background: #ffffff !important;
     border: none !important;
@@ -122,11 +132,8 @@
     transition: transform 0.2s ease-in-out;
 }
 
-.btn-container .import-icon {
-    margin: 0.3rem auto 0 0;
-    color: #fff;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
+.btn-container-a .btns-clear {
+    margin-right: auto;
 }
 
 .history-icon {
@@ -156,19 +163,19 @@
         right: 5px;
     }
 
-    .btn-container .btns-jsontool {
+    .btn-container-a .btns-jsontool {
         margin: 3px;
         font-size: 11px;
         height: auto;
         width: auto;
     }
-    .btn-container .btns-clear {
+    .btn-container-a .btns-clear {
         font-size: 11px;
         height: auto;
         width: auto;
     }
 
-    .btn-container .history-icon {
+    .btn-container-a .history-icon {
         
     }
 
@@ -183,7 +190,7 @@
         height: 50vh;
     }
 
-    .btn-container .btns-jsontool {
+    .btn-container-a .btns-jsontool {
         margin: 2px;
         font-size: 12px;
     }

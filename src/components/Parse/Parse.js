@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import AceEditor from 'react-ace';
-import { FaCopy, FaCheck, FaHistory, FaFileImport } from 'react-icons/fa';
+import { FaCopy, FaCheck, FaHistory } from 'react-icons/fa';
 import History from './History/History';
 import { ToastContainer, toast } from 'react-toastify';
 import { FILE_TYPES } from './constants';
@@ -26,10 +26,15 @@ function Parse() {
     );
     const [showCopyIcon, setShowCopyIcon] = useState(false);
     const editorRef = useRef(null);
+    const fileInputRef = useRef(null);
 
     useEffect(() => {
         localStorage.setItem('lastJsonInput', jsonInput);
     }, [jsonInput]);
+
+    const triggerFileInput = () => {
+        fileInputRef.current.click();
+    };
 
     useEffect(() => {
         if (editorRef.current) {
@@ -50,6 +55,15 @@ function Parse() {
                 bindKey: { win: 'Ctrl-S', mac: 'Cmd-S' },
                 exec: () => {
                     saveToFile(jsonInput);
+                }
+            });
+
+            // Import JSON file functionality
+            editor.commands.addCommand({
+                name: 'importJsonFile',
+                bindKey: { win: 'Ctrl-O', mac: 'Cmd-O' },
+                exec: () => {
+                    triggerFileInput();
                 }
             });
         }
@@ -160,6 +174,45 @@ function Parse() {
         }
     };
 
+    const handleFileChange = async (event) => {
+        const file = event.target.files[0];
+
+        if (!file) return;
+
+        if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+            showError('Please select a JSON file.');
+            event.target.value = '';
+            return;
+        }
+        let fileContent = '';
+        try {
+            const readableStream = file.stream();
+            const reader = readableStream.getReader();
+            const textDecoder = new TextDecoder('utf-8');
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                fileContent += textDecoder.decode(value, { stream: true });
+            }
+            fileContent += textDecoder.decode();
+
+            try {
+                const parsedContent = JSON.parse(fileContent);
+                setJsonInput(JSON.stringify(parsedContent, null, 2));
+            } catch (parseError) {
+                showError(`Error parsing JSON from file: ${parseError.message}`);
+                setJsonInput(fileContent);
+            }
+
+        } catch (err) {
+            console.error('Error reading file with streams:', err);
+            showError('Error reading file with streams.');
+        } finally {
+            event.target.value = '';
+        }
+    };
+
     const handleSelectHistory = (selectedJson) => {
         setJsonInput(selectedJson);
     };
@@ -190,13 +243,20 @@ function Parse() {
             transition={{ duration: 0.5 }}
         >
             <div className={`json-wrapper`}>
+                <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    style={{ display: 'none' }}
+                    accept=".json,application/json"
+                />
                 <div className='editor-container'>
                     <AceEditor
                         mode="json"
                         theme="merbivore_soft"
                         onChange={handleInputChange}
                         value={jsonInput}
-                        placeholder='Enter your json here ...'
+                        placeholder='Enter your json here or import a file with Ctrl+O ...'
                         name="jsonEditor"
                         editorProps={{ $blockScrolling: true }}
                         enableBasicAutocompletion={true}
@@ -218,15 +278,18 @@ function Parse() {
                         </div>
                     )}
                 </div>
-                <div className='btn-container'>
-                    <Button className='btns-jsontool' onClick={validateJson}>Validate</Button>
-                    <Button className='btns-jsontool' onClick={compressJson}>Compress JSON</Button>
-                    <Button className='btns-clear' onClick={clearJson}>Clear</Button>
-                    <FaFileImport className='import-icon' size={33} title="Import" />
-                    {!historyVisible && (
-                        <FaHistory className='history-icon' size={35} onClick={toggleHistory} title="Show History" />
-                        // <Button className='btns-history' onClick={toggleHistory}>Show History</Button>
-                    )}
+                <div className='button-row-container'>
+                    <div className='btn-container-a'>
+                        <Button className='btns-jsontool' onClick={validateJson}>Validate</Button>
+                        <Button className='btns-jsontool' onClick={compressJson}>Compress</Button>
+                        <Button className='btns-clear' onClick={clearJson}>Clear</Button>
+                        {/* <FaFileImport className='import-icon' size={33} onClick={triggerFileInput} disabled={isLoading} title="Import" /> */}
+                    </div>
+                    <div className='btn-container-h'>
+                        {!historyVisible && (
+                            <FaHistory className='history-icon' size={35} onClick={toggleHistory} title="Show History" />
+                        )}
+                    </div>
                 </div>
                 <ToastContainer />
                 <History
