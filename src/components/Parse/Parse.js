@@ -232,6 +232,10 @@ function Parse() {
         localStorage.removeItem('jsonHistory');
     };
 
+    const handleDelete = (indexToDelete) => {
+        setHistory(prev => prev.filter((_, index) => index !== indexToDelete));
+    };
+
     const toggleHistory = () => {
         setHistoryVisible(!historyVisible);
     };
@@ -297,6 +301,7 @@ function Parse() {
                     isVisible={historyVisible}
                     onSelect={handleSelectHistory}
                     clearAllHistory={clearAllHistory}
+                    onDelete={handleDelete}
                     toggleHistory={toggleHistory}
                 />
             </div>

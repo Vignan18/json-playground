@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { FaTimes } from 'react-icons/fa'
+import { MdOutlineDeleteOutline } from "react-icons/md";
 import './history.css'
 
-function History({ history, isVisible, onSelect, clearAllHistory, toggleHistory }) {
+function History({ history, isVisible, onSelect, onDelete, clearAllHistory, toggleHistory }) {
 
     const handleClick = (json) => {
         onSelect(json);
@@ -15,6 +16,10 @@ function History({ history, isVisible, onSelect, clearAllHistory, toggleHistory 
 
     const closePanel = () => {
         toggleHistory();
+    };
+
+    const onDeleteItem = (index) => {
+        onDelete(index);
     };
 
     return (
@@ -34,7 +39,10 @@ function History({ history, isVisible, onSelect, clearAllHistory, toggleHistory 
                             <li key={index} className="history-item" onClick={() => handleClick(entry.json)}>
                                 <span className="json">{entry.json}</span>
                             </li>
-                            <li>
+                            <li className = "meta">
+                                <span className="delete-icon" onClick={() => onDeleteItem(index)}>
+                                    <MdOutlineDeleteOutline />
+                                </span>
                                 <span className="timestamp">{entry.timestamp}</span>
                             </li>
                         </span>
